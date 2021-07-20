@@ -30,6 +30,10 @@ It contains the libraries and header files to create applications
 make %{?_smp_mflags}
 
 %install
+id -un
+id -gn
+id
+umask -p
 make DESTDIR=%{buildroot} install
 
 %files
