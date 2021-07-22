@@ -37,7 +37,7 @@ id
 make DESTDIR=%{buildroot} install
 
 %files
-%defattr(-,root,root)
+%defattr(-,root,root,755)
 %license COPYING
 %{_bindir}/*
 %{_libdir}/*
@@ -45,7 +45,7 @@ make DESTDIR=%{buildroot} install
 %{_datadir}/*
 
 %files devel
-%defattr(-,root,root)
+%defattr(-,root,root,755)
 %{_includedir}/*
 
 %changelog
