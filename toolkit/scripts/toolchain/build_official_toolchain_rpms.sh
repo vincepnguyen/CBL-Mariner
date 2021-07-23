@@ -125,7 +125,7 @@ chroot_and_install_rpms () {
         TERM="$TERM"                       \
         PS1='\u:\w\$ '                     \
         PATH=/bin:/usr/bin:/sbin:/usr/sbin \
-        rpm -i -vh --nodeps $CHROOT_INSTALL_RPM_DIR_IN_CHROOT/*
+        rpm -i -vh --force --nodeps $CHROOT_INSTALL_RPM_DIR_IN_CHROOT/*
 
     chroot_unmount
 }
@@ -200,6 +200,8 @@ cp -v $MARINER_TOOLCHAIN_MANIFESTS_DIR/macros.override $LFS/usr/lib/rpm/macros.d
 chmod +x $LFS/usr/lib/rpm/brp*
 cp /etc/resolv.conf $LFS/etc/
 
+chroot_and_print_installed_rpms
+
 echo Building final list of toolchain RPMs
 build_rpm_in_chroot_no_install mariner-rpm-macros
 copy_rpm_subpackage mariner-check-macros
@@ -226,7 +228,6 @@ build_rpm_in_chroot_no_install gettext
 build_rpm_in_chroot_no_install sqlite
 build_rpm_in_chroot_no_install nspr
 build_rpm_in_chroot_no_install expat
-build_rpm_in_chroot_no_install grep
 build_rpm_in_chroot_no_install libffi
 build_rpm_in_chroot_no_install xz
 build_rpm_in_chroot_no_install zstd
@@ -306,6 +307,9 @@ chroot_and_install_rpms openjdk8
 # Copy OpenJRE
 cp -v $CHROOT_RPMS_DIR_ARCH/openjre8* $FINISHED_RPM_DIR
 chroot_and_install_rpms openjre8
+
+# PCRE needs to be installed (above) for grep to build with perl regexp support
+build_rpm_in_chroot_no_install grep
 
 # Python2 needs to be installed for RPM to build
 build_rpm_in_chroot_no_install python2
@@ -450,6 +454,9 @@ build_rpm_in_chroot_no_install libselinux
 chroot_and_install_rpms libselinux
 build_rpm_in_chroot_no_install util-linux
 build_rpm_in_chroot_no_install rpm
+
+# rebuild pam with selinux support
+build_rpm_in_chroot_no_install pam
 
 # systemd-bootstrap requires libcap, xz, kbd, kmod, util-linux, meson
 chroot_and_install_rpms libcap

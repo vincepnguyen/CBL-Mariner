@@ -84,9 +84,8 @@ remove_packages_for_pkggen_core () {
     sed -i '/libxslt/d' $TmpPkgGen
     sed -i '/Linux-PAM/d' $TmpPkgGen
     sed -i '/lua-devel/d' $TmpPkgGen
-    sed -ri '/mariner-repos-(extras|ui)/d' $TmpPkgGen
+    sed -ri '/mariner-repos-(extras|ui|microsoft)/d' $TmpPkgGen
     sed -i '/npth-[[:alpha:]]/d' $TmpPkgGen
-    sed -i '/pcre-[0-9]/d' $TmpPkgGen
     sed -i '/pcre-devel/d' $TmpPkgGen
     sed -i '/perl-D/d' $TmpPkgGen
     sed -i '/perl-libintl/d' $TmpPkgGen
@@ -193,13 +192,8 @@ generate_pkggen_core () {
         grep "^ca-certificates-shared-" $TmpPkgGen
         grep "^ca-certificates-tools-" $TmpPkgGen
         grep "^ca-certificates-base-" $TmpPkgGen
-        grep "^finger-" $TmpPkgGen
-        grep "^tcp_wrappers-" $TmpPkgGen
-        grep "^audit-libs-" $TmpPkgGen
         grep "^cyrus-sasl-" $TmpPkgGen
-        grep "^libsepol-" $TmpPkgGen
         grep "^libselinux-" $TmpPkgGen
-        grep "^libsemanage-" $TmpPkgGen
 
     } > "$1"
 }
