@@ -12,7 +12,7 @@ echo LFS root is: $LFS
 chown -R root:root $LFS/tools
 
 # build jdk before mknod and other toolchain changes
-sh /tools/toolchain-jdk8-build.sh 2>&1 | tee $LFS/logs/openjdk8.log
+echo Remove JDK8 build
 
 mkdir -pv $LFS/{dev,proc,sys,run}
 mknod -m 600 $LFS/dev/console c 5 1

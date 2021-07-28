@@ -28,13 +28,6 @@ RUN apt-get update -y -qq && \
     sudo \
     vim \
     wget \
-    openjdk-8-jdk \
-    libx11-dev \
-    libxext-dev \
-    libxrender-dev \
-    libxtst-dev \
-    libxt-dev \
-    libcups2-dev \
     libfreetype6-dev \
     libasound2-dev \
     libpng16-16 \
@@ -58,7 +51,6 @@ COPY [ "./toolchain-md5sums", \
        "./toolchain-remote-wget-list", \
        "./toolchain-local-wget-list", \
        "./texinfo-perl-fix.patch", \
-       "./toolchain-jdk8-wget.sh", \
        "$LFS/tools/" ]
 
 # Download source, then create lfs user and group.
@@ -70,7 +62,6 @@ RUN wget -nv --no-clobber --timeout=30 --no-check-certificate --continue --input
 RUN wget -nv --no-clobber --timeout=30 --continue --input-file=$LFS/tools/toolchain-remote-wget-list --directory-prefix=$LFS/sources; exit 0
 RUN wget -nv --no-clobber --timeout=30 --continue https://github.com/microsoft/CBL-Mariner-Linux-Kernel/archive/rolling-lts/mariner/5.10.52.1.tar.gz -O kernel-5.10.52.1.tar.gz --directory-prefix=$LFS/sources; exit 0
 USER root
-RUN /tools/toolchain-jdk8-wget.sh; exit 0
 RUN md5sum -c $LFS/tools/toolchain-md5sums && \
     groupadd lfs && \
     useradd -s /bin/bash -g lfs -m -k /dev/null lfs && \
@@ -95,10 +86,6 @@ COPY [ "./toolchain_initial_chroot_setup.sh", \
        "./toolchain_build_in_chroot.sh", \
        "./mount_chroot_start_build.sh", \
        "./unmount_chroot.sh", \
-       "./jdk8-build-raw.sh", \
-       "./toolchain-jdk8-build.sh", \
-       "./Awt_build_headless_only.patch", \
-       "./check-system-ca-certs.patch", \
        "./go14_bootstrap_aarch64.patch", \
        "$LFS/tools/" ]
 
