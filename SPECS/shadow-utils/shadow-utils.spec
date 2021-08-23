@@ -31,6 +31,7 @@ BuildRequires:  pam-devel
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
+BuildRequires:  libxslt
 Requires:       cracklib
 Requires:       pam
 Provides:       /sbin/nologin
